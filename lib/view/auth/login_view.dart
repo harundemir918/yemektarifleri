@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../home/home_view.dart';
 import '../widgets/app_logo.dart';
 import '../widgets/auth_text_form_field.dart';
 import 'register_view.dart';
@@ -60,7 +61,14 @@ class LoginView extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeView(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Container(

@@ -14,4 +14,20 @@ class Constants {
   final String emailString = 'EMAİL';
   final String passwordString = 'ŞİFRE';
   final String passwordAgainString = 'ŞİFRE (TEKRAR)';
+
+  final String lastAddedRecipesString = 'Son Eklenen Tarifler';
+  final String categoriesString = 'Kategoriler';
+  final String recommendedString = 'Tavsiye edilenler';
+  final String seeAllString = 'Hepsini Gör';
+  final String caloriesUnitString = 'kcal';
+  final String durationUnitString = 'dk';
+  final String personUnitString = 'kişi';
+  final String ingredientsString = 'İçindekiler';
+  final String nutritionFactsString = 'Besin Değerleri';
+  final String carbohydrateTitleString = 'Karbonhidrat';
+  final String carbohydrateUnitString = 'g';
+  final String proteinTitleString = 'Protein';
+  final String proteinUnitString = 'g';
+  final String fatTitleString = 'Yağ';
+  final String fatUnitString = 'g';
 }

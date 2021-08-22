@@ -5,8 +5,8 @@ import '../../constants.dart';
 class CategoriesListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return Container(
@@ -18,8 +18,8 @@ class CategoriesListCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                width: dynamicWidth * 0.5,
-                height: dynamicHeight * 0.15,
+                width: deviceWidth * 0.5,
+                height: deviceHeight * 0.15,
                 child: FittedBox(
                   fit: BoxFit.fill,
                   child: Image.network(
@@ -36,8 +36,8 @@ class CategoriesListCard extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
               child: Container(
-                width: dynamicWidth * 0.5,
-                height: dynamicHeight * 0.05,
+                width: deviceWidth * 0.5,
+                height: deviceHeight * 0.05,
                 color: Colors.black.withOpacity(0.5),
               ),
             ),
@@ -46,9 +46,9 @@ class CategoriesListCard extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: Container(
               margin: EdgeInsets.only(
-                top: dynamicHeight * 0.01,
-                bottom: dynamicHeight * 0.01,
-                left: dynamicWidth * 0.025,
+                top: deviceHeight * 0.01,
+                bottom: deviceHeight * 0.01,
+                left: deviceWidth * 0.025,
               ),
               child: Text(
                 'Tavuk Sote',

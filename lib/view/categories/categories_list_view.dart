@@ -7,8 +7,19 @@ class CategoriesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Kategoriler',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      body: Container(
         child: CategoriesGridList(),
       ),
     );

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../categories/categories_list_view.dart';
 import 'categories_list_card.dart';
 
 class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return Container(
       margin: EdgeInsets.only(
-        left: dynamicWidth * 0.05,
+        left: deviceWidth * 0.05,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -23,7 +24,7 @@ class CategoriesList extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.symmetric(
-                  vertical: dynamicHeight * 0.02,
+                  vertical: deviceHeight * 0.02,
                 ),
                 child: Text(
                   _constants.categoriesString,
@@ -31,7 +32,14 @@ class CategoriesList extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoriesListView(),
+                    ),
+                  );
+                },
                 child: Row(
                   children: [
                     Text(_constants.seeAllString),
@@ -42,7 +50,7 @@ class CategoriesList extends StatelessWidget {
             ],
           ),
           Container(
-            height: dynamicHeight * 0.15,
+            height: deviceHeight * 0.15,
             child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,

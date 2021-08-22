@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../account/account_view.dart';
-import '../categories/categories_list_view.dart';
+import '../add_recipe/add_recipe_view.dart';
 import '../recipes/recipes_list_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -16,7 +16,7 @@ class _HomeViewState extends State<HomeView>
 
   final List<Widget> _pageList = [
     RecipesListView(),
-    CategoriesListView(),
+    AddRecipeView(),
     AccountView(),
   ];
 
@@ -73,8 +73,8 @@ class _HomeViewState extends State<HomeView>
             labelColor: Colors.deepOrange[500],
             tabs: [
               Tab(icon: Icon(Icons.home)),
-              Tab(icon: Icon(Icons.list)),
-              Tab(icon: Icon(Icons.favorite_border)),
+              Tab(icon: Icon(Icons.add_box)),
+              Tab(icon: Icon(Icons.person)),
             ],
             controller: _tabController,
           ),

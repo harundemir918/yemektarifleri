@@ -6,8 +6,8 @@ import '../recipes/recipe_detail_view.dart';
 class RecommendedListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return InkWell(
@@ -19,15 +19,15 @@ class RecommendedListCard extends StatelessWidget {
       ),
       child: Card(
         child: Container(
-          height: dynamicHeight * 0.2,
+          height: deviceHeight * 0.2,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4),
                 child: Container(
-                  width: dynamicWidth * 0.4,
-                  height: dynamicHeight * 0.5,
+                  width: deviceWidth * 0.4,
+                  height: deviceHeight * 0.5,
                   child: FittedBox(
                     fit: BoxFit.cover,
                     child: Image.network(
@@ -36,11 +36,11 @@ class RecommendedListCard extends StatelessWidget {
                 ),
               ),
               Container(
-                width: dynamicWidth * 0.4,
-                height: dynamicHeight * 0.5,
+                width: deviceWidth * 0.4,
+                height: deviceHeight * 0.5,
                 margin: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth * 0.02,
-                  vertical: dynamicHeight * 0.02,
+                  horizontal: deviceWidth * 0.02,
+                  vertical: deviceHeight * 0.02,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

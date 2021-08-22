@@ -6,8 +6,8 @@ import '../recipes/recipe_detail_view.dart';
 class LastAddedRecipesListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return InkWell(
@@ -19,8 +19,8 @@ class LastAddedRecipesListCard extends StatelessWidget {
       ),
       child: Card(
         child: Container(
-          width: dynamicWidth * 0.5,
-          height: dynamicHeight * 0.5,
+          width: deviceWidth * 0.5,
+          height: deviceHeight * 0.5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,7 +29,7 @@ class LastAddedRecipesListCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: Container(
-                    width: dynamicWidth * 0.5,
+                    width: deviceWidth * 0.5,
                     child: FittedBox(
                       fit: BoxFit.cover,
                       child: Image.network(
@@ -42,8 +42,8 @@ class LastAddedRecipesListCard extends StatelessWidget {
                 flex: 1,
                 child: Container(
                   margin: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth * 0.01,
-                    vertical: dynamicHeight * 0.01,
+                    horizontal: deviceWidth * 0.01,
+                    vertical: deviceHeight * 0.01,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

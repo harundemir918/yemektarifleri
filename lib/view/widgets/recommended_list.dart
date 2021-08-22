@@ -6,14 +6,14 @@ import 'recommended_list_card.dart';
 class RecommendedList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return Container(
       margin: EdgeInsets.symmetric(
-        horizontal: dynamicWidth * 0.05,
-        vertical: dynamicHeight * 0.01,
+        horizontal: deviceWidth * 0.05,
+        vertical: deviceHeight * 0.01,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -21,7 +21,7 @@ class RecommendedList extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.symmetric(
-              vertical: dynamicHeight * 0.025,
+              vertical: deviceHeight * 0.025,
             ),
             child: Text(
               _constants.recommendedString,
@@ -29,7 +29,7 @@ class RecommendedList extends StatelessWidget {
             ),
           ),
           Container(
-            height: dynamicHeight * 1.07,
+            height: deviceHeight * 1.07,
             child: Column(
               children: [
                 RecommendedListCard(),

@@ -6,14 +6,14 @@ import 'last_added_recipes_list_card.dart';
 class LastAddedRecipesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return Container(
-      height: dynamicHeight * 0.6,
+      height: deviceHeight * 0.6,
       margin: EdgeInsets.only(
-        left: dynamicWidth * 0.05,
+        left: deviceWidth * 0.05,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

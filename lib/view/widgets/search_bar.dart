@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
       margin: EdgeInsets.only(
-        top: dynamicHeight * 0.025,
-        left: dynamicWidth * 0.05,
-        right: dynamicWidth * 0.05,
+        top: deviceHeight * 0.025,
+        left: deviceWidth * 0.05,
+        right: deviceWidth * 0.05,
       ),
       child: Container(
-        width: dynamicWidth * 0.9,
-        height: dynamicHeight * 0.075,
+        width: deviceWidth * 0.9,
+        height: deviceHeight * 0.075,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           boxShadow: [

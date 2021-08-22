@@ -5,8 +5,8 @@ import '../../constants.dart';
 class CategoriesGridListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return Container(
@@ -17,8 +17,8 @@ class CategoriesGridListCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                width: dynamicWidth * 0.45,
-                height: dynamicWidth * 0.45,
+                width: deviceWidth * 0.45,
+                height: deviceWidth * 0.45,
                 child: FittedBox(
                   fit: BoxFit.cover,
                   child: Image.network(
@@ -35,8 +35,8 @@ class CategoriesGridListCard extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
               child: Container(
-                width: dynamicWidth * 0.45,
-                height: dynamicHeight * 0.05,
+                width: deviceWidth * 0.45,
+                height: deviceHeight * 0.05,
                 color: Colors.black.withOpacity(0.5),
               ),
             ),
@@ -45,9 +45,9 @@ class CategoriesGridListCard extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: Container(
               margin: EdgeInsets.only(
-                top: dynamicHeight * 0.01,
-                bottom: dynamicHeight * 0.01,
-                left: dynamicWidth * 0.075,
+                top: deviceHeight * 0.01,
+                bottom: deviceHeight * 0.01,
+                left: deviceWidth * 0.075,
               ),
               child: Text(
                 'Tavuk Sote',

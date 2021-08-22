@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class MealInfoTitleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      width: dynamicWidth * 0.9,
-      height: dynamicHeight * 0.5,
+      width: deviceWidth * 0.9,
+      height: deviceHeight * 0.5,
       margin: EdgeInsets.only(
-        top: dynamicHeight * 0.025,
-        left: dynamicWidth * 0.05,
-        right: dynamicWidth * 0.05,
+        top: deviceHeight * 0.025,
+        left: deviceWidth * 0.05,
+        right: deviceWidth * 0.05,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -36,8 +36,8 @@ class MealInfoTitleCard extends StatelessWidget {
                 topRight: Radius.circular(30),
               ),
               child: Container(
-                width: dynamicWidth * 1,
-                height: dynamicHeight * 0.3,
+                width: deviceWidth * 1,
+                height: deviceHeight * 0.3,
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Image.network(
@@ -52,7 +52,7 @@ class MealInfoTitleCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: dynamicWidth * 0.8,
+                  width: deviceWidth * 0.8,
                   child: Text(
                     'Tavuk Sote',
                     style: Theme.of(context).textTheme.headline6,

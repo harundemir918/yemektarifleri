@@ -15,15 +15,15 @@ class MealInfoNutritionFactsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dynamicWidth = MediaQuery.of(context).size.width;
-    final dynamicHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     Constants _constants = Constants();
 
     return Container(
-      width: dynamicWidth * 0.9,
+      width: deviceWidth * 0.9,
       margin: EdgeInsets.symmetric(
-        horizontal: dynamicWidth * 0.05,
-        vertical: dynamicHeight * 0.025,
+        horizontal: deviceWidth * 0.05,
+        vertical: deviceHeight * 0.025,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

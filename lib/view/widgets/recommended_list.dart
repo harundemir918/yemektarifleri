@@ -8,7 +8,6 @@ class RecommendedList extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    Constants _constants = Constants();
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -24,7 +23,7 @@ class RecommendedList extends StatelessWidget {
               vertical: deviceHeight * 0.025,
             ),
             child: Text(
-              _constants.recommendedString,
+              recommendedString,
               style: Theme.of(context).textTheme.headline6,
             ),
           ),

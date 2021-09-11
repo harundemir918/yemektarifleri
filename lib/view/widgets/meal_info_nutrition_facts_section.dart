@@ -17,7 +17,6 @@ class MealInfoNutritionFactsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    Constants _constants = Constants();
 
     return Container(
       width: deviceWidth * 0.9,
@@ -35,7 +34,7 @@ class MealInfoNutritionFactsSection extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                _constants.nutritionFactsString,
+                nutritionFactsString,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
@@ -47,16 +46,16 @@ class MealInfoNutritionFactsSection extends StatelessWidget {
             height: 10,
           ),
           _buildInfoRow(
-            title: _constants.carbohydrateTitleString,
-            value: '100 ${_constants.carbohydrateUnitString}',
+            title: carbohydrateTitleString,
+            value: '100 $carbohydrateUnitString',
           ),
           _buildInfoRow(
-            title: _constants.proteinTitleString,
-            value: '100 ${_constants.proteinUnitString}',
+            title: proteinTitleString,
+            value: '100 $proteinUnitString',
           ),
           _buildInfoRow(
-            title: _constants.fatTitleString,
-            value: '100 ${_constants.fatUnitString}',
+            title: fatTitleString,
+            value: '100 $fatUnitString',
           ),
         ],
       ),

@@ -8,7 +8,6 @@ class RecommendedListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    Constants _constants = Constants();
 
     return InkWell(
       onTap: () => Navigator.push(
@@ -57,15 +56,15 @@ class RecommendedListCard extends StatelessWidget {
                         children: [
                           _buildInfoRow(
                             icon: 'assets/icons/calories.png',
-                            title: '100 ${_constants.caloriesUnitString}',
+                            title: '100 $caloriesUnitString',
                           ),
                           _buildInfoRow(
                             icon: 'assets/icons/chronometer.png',
-                            title: '10 ${_constants.durationUnitString}',
+                            title: '10 $durationUnitString',
                           ),
                           _buildInfoRow(
                             icon: 'assets/icons/person.png',
-                            title: '4 ${_constants.personUnitString}',
+                            title: '4 $personUnitString',
                           ),
                         ],
                       ),

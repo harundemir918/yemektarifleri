@@ -7,7 +7,6 @@ class MealInfoIngredientsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    Constants _constants = Constants();
 
     return Container(
       width: deviceWidth * 0.9,
@@ -25,7 +24,7 @@ class MealInfoIngredientsSection extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                _constants.ingredientsString,
+                ingredientsString,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!

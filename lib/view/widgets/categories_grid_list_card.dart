@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
-
 class CategoriesGridListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    Constants _constants = Constants();
 
     return Container(
       child: Stack(

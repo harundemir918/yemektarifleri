@@ -9,7 +9,6 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    Constants _constants = Constants();
 
     return Container(
       margin: EdgeInsets.only(
@@ -27,7 +26,7 @@ class CategoriesList extends StatelessWidget {
                   vertical: deviceHeight * 0.02,
                 ),
                 child: Text(
-                  _constants.categoriesString,
+                  categoriesString,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
@@ -42,7 +41,7 @@ class CategoriesList extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Text(_constants.seeAllString),
+                    Text(seeAllString),
                     Icon(Icons.arrow_forward_ios_rounded),
                   ],
                 ),

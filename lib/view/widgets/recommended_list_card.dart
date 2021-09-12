@@ -4,6 +4,12 @@ import '../../constants.dart';
 import '../recipes/recipe_detail_view.dart';
 
 class RecommendedListCard extends StatelessWidget {
+  final recipe;
+
+  RecommendedListCard({
+    this.recipe,
+  });
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -13,7 +19,7 @@ class RecommendedListCard extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => RecipeDetailView(),
+          builder: (context) => RecipeDetailView(recipe: recipe),
         ),
       ),
       child: Card(
@@ -29,8 +35,7 @@ class RecommendedListCard extends StatelessWidget {
                   height: deviceHeight * 0.5,
                   child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(
-                        'https://cdn.yemek.com/mnresize/940/940/uploads/2015/08/tavuk-sote-yemekcom.jpg'),
+                    child: Image.network(recipe.picture),
                   ),
                 ),
               ),
@@ -46,7 +51,7 @@ class RecommendedListCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Tavuk Sote',
+                      recipe.title,
                       style: Theme.of(context).textTheme.bodyText1,
                       maxLines: 2,
                     ),
@@ -56,15 +61,15 @@ class RecommendedListCard extends StatelessWidget {
                         children: [
                           _buildInfoRow(
                             icon: 'assets/icons/calories.png',
-                            title: '100 $caloriesUnitString',
+                            title: '${recipe.calories} $caloriesUnitString',
                           ),
                           _buildInfoRow(
                             icon: 'assets/icons/chronometer.png',
-                            title: '10 $durationUnitString',
+                            title: '${recipe.duration} $durationUnitString',
                           ),
                           _buildInfoRow(
                             icon: 'assets/icons/person.png',
-                            title: '4 $personUnitString',
+                            title: '${recipe.person} $personUnitString',
                           ),
                         ],
                       ),

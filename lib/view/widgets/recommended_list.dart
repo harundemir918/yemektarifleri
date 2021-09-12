@@ -4,6 +4,10 @@ import '../../constants.dart';
 import 'recommended_list_card.dart';
 
 class RecommendedList extends StatelessWidget {
+  final recommendedList;
+
+  RecommendedList({this.recommendedList});
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -30,13 +34,11 @@ class RecommendedList extends StatelessWidget {
           Container(
             height: deviceHeight * 1.07,
             child: Column(
-              children: [
-                RecommendedListCard(),
-                RecommendedListCard(),
-                RecommendedListCard(),
-                RecommendedListCard(),
-                RecommendedListCard(),
-              ],
+              children: recommendedList.map<Widget>((recommended) {
+                return RecommendedListCard(
+                  recipe: recommended,
+                );
+              }).toList(),
             ),
           ),
         ],

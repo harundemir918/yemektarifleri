@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class MealInfoIngredientsSection extends StatelessWidget {
+  final ingredients;
+
+  MealInfoIngredientsSection({
+    this.ingredients,
+  });
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -36,7 +42,7 @@ class MealInfoIngredientsSection extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Yarım kg tavuk göğsü\n2 yemek kaşığı sıvı yağ\n1 tatlı kaşığı domates salçası\n2 adet yeşil biber\n1 adet kırmızı biber\n1 adet soğan\n2 diş sarımsak\n2 adet domates\nKarabiber\nPul biber\nTuz\n1 su bardağı su',
+            ingredients,
           ),
         ],
       ),

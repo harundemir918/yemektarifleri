@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MealInfoRecipeSection extends StatelessWidget {
+  final recipe;
+
+  MealInfoRecipeSection({
+    this.recipe,
+  });
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -34,7 +40,7 @@ class MealInfoRecipeSection extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Tavuk etini kuşbaşı doğrayın.\nSoğanları yemeklik, biberleri julyen doğrayın, domatesleri de küp küp doğrayın.\nKısık ateşte tavukları arada karıştırarak kavurun.\nSuyunu biraz çektikten sonra soğanları ve ince kesilmiş sarımsağı ekleyin.\n1-2 dk kavurduktan sonra biberleri ilave edin.\nBiberler de sotelenince domatesi, salçayı, baharatları ve tuzu ekleyip pişirmeye devam edin.\nSon olarak 1 bardak suyu ekleyin ve etler pişene kadar kapağı kapalı bir şekilde pişirin.',
+            recipe,
             textAlign: TextAlign.justify,
           ),
         ],

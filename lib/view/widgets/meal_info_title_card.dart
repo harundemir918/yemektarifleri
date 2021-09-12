@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 
 class MealInfoTitleCard extends StatelessWidget {
+  final title;
+  final calories;
+  final duration;
+  final person;
+  final picture;
+
+  MealInfoTitleCard({
+    this.title,
+    this.calories,
+    this.duration,
+    this.person,
+    this.picture,
+  });
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -40,8 +54,7 @@ class MealInfoTitleCard extends StatelessWidget {
                 height: deviceHeight * 0.3,
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
-                  child: Image.network(
-                      'https://cdn.yemek.com/mnresize/940/940/uploads/2015/08/tavuk-sote-yemekcom.jpg'),
+                  child: Image.network(picture),
                 ),
               ),
             ),
@@ -54,7 +67,7 @@ class MealInfoTitleCard extends StatelessWidget {
                 Container(
                   width: deviceWidth * 0.8,
                   child: Text(
-                    'Tavuk Sote',
+                    title,
                     style: Theme.of(context).textTheme.headline6,
                     textAlign: TextAlign.center,
                   ),
@@ -64,15 +77,15 @@ class MealInfoTitleCard extends StatelessWidget {
                   children: [
                     _buildInfoRow(
                       icon: 'assets/icons/calories.png',
-                      title: '100 kcal',
+                      title: '$calories kcal',
                     ),
                     _buildInfoRow(
                       icon: 'assets/icons/chronometer.png',
-                      title: '10 dk',
+                      title: '$duration dk',
                     ),
                     _buildInfoRow(
                       icon: 'assets/icons/person.png',
-                      title: '4 kişi',
+                      title: '$person kişi',
                     ),
                   ],
                 ),

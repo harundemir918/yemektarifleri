@@ -47,15 +47,15 @@ class MealInfoNutritionFactsSection extends StatelessWidget {
           ),
           _buildInfoRow(
             title: carbohydrateTitleString,
-            value: '100 $carbohydrateUnitString',
+            value: '$carbohydrate $carbohydrateUnitString',
           ),
           _buildInfoRow(
             title: proteinTitleString,
-            value: '100 $proteinUnitString',
+            value: '$protein $proteinUnitString',
           ),
           _buildInfoRow(
             title: fatTitleString,
-            value: '100 $fatUnitString',
+            value: '$fat $fatUnitString',
           ),
         ],
       ),

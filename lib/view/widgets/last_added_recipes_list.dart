@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:yemektarifleri/service/api.dart';
 
 import '../../constants.dart';
+import '../../service/api.dart';
 import 'last_added_recipes_list_card.dart';
 
 class LastAddedRecipesList extends StatelessWidget {
+  final lastAddedList;
+
+  LastAddedRecipesList({this.lastAddedList});
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -55,13 +59,10 @@ class LastAddedRecipesList extends StatelessWidget {
             child: Container(
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  LastAddedRecipesListCard(),
-                  LastAddedRecipesListCard(),
-                  LastAddedRecipesListCard(),
-                  LastAddedRecipesListCard(),
-                  LastAddedRecipesListCard(),
-                ],
+                children: lastAddedList
+                    .map<Widget>((lastAdded) =>
+                        LastAddedRecipesListCard(recipe: lastAdded))
+                    .toList(),
               ),
             ),
           ),

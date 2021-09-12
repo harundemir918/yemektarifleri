@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../viewmodel/recipe_list_view_model.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/last_added_recipes_list.dart';
 import '../widgets/recommended_list.dart';
@@ -13,14 +15,23 @@ class RecipesListView extends StatefulWidget {
 }
 
 class _RecipesListViewState extends State<RecipesListView> {
+  void initState() {
+    Provider.of<RecipeListViewModel>(context, listen: false)
+        .getLastAddedRecipes();
+    Provider.of<RecipeListViewModel>(context, listen: false)
+        .getRecommendedRecipes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var recipeViewModel = Provider.of<RecipeListViewModel>(context);
     return Column(
       children: [
         SearchBar(),
-        LastAddedRecipesList(),
+        LastAddedRecipesList(lastAddedList: recipeViewModel.lastAddedRecipes),
         CategoriesList(),
-        RecommendedList(),
+        RecommendedList(recommendedList: recipeViewModel.recommendedRecipes),
       ],
     );
   }

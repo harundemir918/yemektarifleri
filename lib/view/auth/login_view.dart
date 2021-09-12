@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:yemektarifleri/service/api.dart';
-import 'package:yemektarifleri/view/auth/register_view.dart';
-import 'package:yemektarifleri/view/home/home_view.dart';
-import 'package:yemektarifleri/view/widgets/app_logo.dart';
-import 'package:yemektarifleri/view/widgets/auth_text_form_field.dart';
 
 import '../../constants.dart';
+import '../../service/api.dart';
+import '../home/home_view.dart';
+import '../widgets/app_logo.dart';
+import '../widgets/auth_text_form_field.dart';
+import 'register_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);

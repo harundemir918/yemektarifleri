@@ -192,4 +192,29 @@ class Api {
           'Response Status: ${response.statusCode}. Failed to get data.');
     }
   }
+
+  Future<List<RecipeModel>> fetchCategoryRecipes(int id) async {
+    List<RecipeModel> categoryRecipesList = [];
+
+    String token = await getToken();
+    final recipesUrl = Uri.parse('$apiCategoriesUrl/$id/recipes');
+    final response = await http.get(recipesUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final result = jsonDecode(response.body);
+      result.forEach(
+        (recipe) => categoryRecipesList.add(
+          RecipeModel.fromJson(recipe),
+        ),
+      );
+      return categoryRecipesList;
+    } else {
+      throw Exception(
+          'Response Status: ${response.statusCode}. Failed to get data.');
+    }
+  }
 }

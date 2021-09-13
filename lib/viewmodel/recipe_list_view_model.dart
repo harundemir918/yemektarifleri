@@ -11,6 +11,7 @@ class RecipeListViewModel with ChangeNotifier {
   List<RecipeViewModel> allRecipes = [];
   List<RecipeViewModel> lastAddedRecipes = [];
   List<RecipeViewModel> recommendedRecipes = [];
+  List<RecipeViewModel> categoryRecipes = [];
 
   void getAllRecipes() async {
     List<RecipeModel> recipesList = await Api().fetchAllRecipes();
@@ -50,6 +51,21 @@ class RecipeListViewModel with ChangeNotifier {
     this.recommendedRecipes =
         recipesList.map((recipe) => RecipeViewModel(recipe: recipe)).toList();
     if (this.recommendedRecipes.isEmpty) {
+      this.loadingStatus = LoadingStatus.empty;
+    } else {
+      this.loadingStatus = LoadingStatus.completed;
+    }
+    notifyListeners();
+  }
+
+  void getCategoryRecipes(int id) async {
+    List<RecipeModel> recipesList = await Api().fetchCategoryRecipes(id);
+    loadingStatus = LoadingStatus.searching;
+    notifyListeners();
+
+    this.categoryRecipes =
+        recipesList.map((recipe) => RecipeViewModel(recipe: recipe)).toList();
+    if (this.categoryRecipes.isEmpty) {
       this.loadingStatus = LoadingStatus.empty;
     } else {
       this.loadingStatus = LoadingStatus.completed;

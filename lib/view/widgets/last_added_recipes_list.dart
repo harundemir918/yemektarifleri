@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import '../../service/api.dart';
+import '../recipes/all_recipes_list_view.dart';
 import 'last_added_recipes_list_card.dart';
 
 class LastAddedRecipesList extends StatelessWidget {
@@ -37,13 +37,12 @@ class LastAddedRecipesList extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () async {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => CategoriesListView(),
-                  //   ),
-                  // );
-                  await Api().fetchAllRecipes();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllRecipesListView(),
+                    ),
+                  );
                 },
                 child: Row(
                   children: [

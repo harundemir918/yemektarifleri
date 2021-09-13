@@ -8,8 +8,24 @@ enum LoadingStatus { completed, searching, empty }
 
 class RecipeListViewModel with ChangeNotifier {
   LoadingStatus loadingStatus = LoadingStatus.empty;
+  List<RecipeViewModel> allRecipes = [];
   List<RecipeViewModel> lastAddedRecipes = [];
   List<RecipeViewModel> recommendedRecipes = [];
+
+  void getAllRecipes() async {
+    List<RecipeModel> recipesList = await Api().fetchAllRecipes();
+    loadingStatus = LoadingStatus.searching;
+    notifyListeners();
+
+    this.allRecipes =
+        recipesList.map((recipe) => RecipeViewModel(recipe: recipe)).toList();
+    if (this.allRecipes.isEmpty) {
+      this.loadingStatus = LoadingStatus.empty;
+    } else {
+      this.loadingStatus = LoadingStatus.completed;
+    }
+    notifyListeners();
+  }
 
   void getLastAddedRecipes() async {
     List<RecipeModel> recipesList = await Api().fetchLastAddedRecipes();

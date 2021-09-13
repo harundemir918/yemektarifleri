@@ -47,7 +47,7 @@ class LastAddedRecipesList extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Text(seeAllString),
+                    Text(allRecipesString),
                     Icon(Icons.arrow_forward_ios_rounded),
                   ],
                 ),

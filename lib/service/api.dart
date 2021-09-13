@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
+import '../model/category_model.dart';
 import '../model/recipe_model.dart';
 import '../model/user_model.dart';
 
@@ -49,7 +50,9 @@ class Api {
     return false;
   }
 
-  fetchAllRecipes() async {
+  Future<List<RecipeModel>> fetchAllRecipes() async {
+    List<RecipeModel> allRecipesList = [];
+
     String token = await getToken();
     final recipesUrl = Uri.parse(apiRecipesUrl);
     final response = await http.get(recipesUrl, headers: {
@@ -57,7 +60,19 @@ class Api {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     });
-    print(response.body);
+
+    if (response.statusCode == HttpStatus.ok) {
+      final result = jsonDecode(response.body);
+      result.forEach(
+        (recipe) => allRecipesList.add(
+          RecipeModel.fromJson(recipe),
+        ),
+      );
+      return allRecipesList;
+    } else {
+      throw Exception(
+          'Response Status: ${response.statusCode}. Failed to get data.');
+    }
   }
 
   Future<List<RecipeModel>> fetchRecommendedRecipes() async {
@@ -122,6 +137,56 @@ class Api {
     if (response.statusCode == HttpStatus.ok) {
       final result = RecipeModel.fromJson(jsonDecode(response.body));
       return result;
+    } else {
+      throw Exception(
+          'Response Status: ${response.statusCode}. Failed to get data.');
+    }
+  }
+
+  Future<List<CategoryModel>> fetchAllCategories() async {
+    List<CategoryModel> categoriesList = [];
+
+    String token = await getToken();
+    final categoriesUrl = Uri.parse(apiCategoriesUrl);
+    final response = await http.get(categoriesUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final result = jsonDecode(response.body);
+      result.forEach(
+        (recipe) => categoriesList.add(
+          CategoryModel.fromJson(recipe),
+        ),
+      );
+      return categoriesList;
+    } else {
+      throw Exception(
+          'Response Status: ${response.statusCode}. Failed to get data.');
+    }
+  }
+
+  Future<List<CategoryModel>> fetchLastAddedCategories() async {
+    List<CategoryModel> lastAddedCategoriesList = [];
+
+    String token = await getToken();
+    final categoriesUrl = Uri.parse(apiLastAddedCategoriesUrl);
+    final response = await http.get(categoriesUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final result = jsonDecode(response.body);
+      result.forEach(
+        (recipe) => lastAddedCategoriesList.add(
+          CategoryModel.fromJson(recipe),
+        ),
+      );
+      return lastAddedCategoriesList;
     } else {
       throw Exception(
           'Response Status: ${response.statusCode}. Failed to get data.');

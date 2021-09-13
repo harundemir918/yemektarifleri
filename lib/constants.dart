@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 final String appName = 'Yemek Tarifleri';
 
-final String apiUrl = 'http://127.0.0.1:8000/api';
+final String apiBaseUrl = 'http://127.0.0.1:8000';
+final String apiUrl = '$apiBaseUrl/api';
 final String apiLoginUrl = '$apiUrl/auth/login';
 final String apiRegisterUrl = '$apiUrl/auth/signup';
 final String apiRecipesUrl = '$apiUrl/recipes';
 final String apiRecommendedRecipesUrl = '$apiUrl/recipes/recommended';
 final String apiLastAddedRecipesUrl = '$apiUrl/recipes/last-added';
+final String apiCategoriesUrl = '$apiUrl/categories';
+final String apiLastAddedCategoriesUrl = '$apiUrl/categories/last-added';
+final String apiCategoryImagesUrl = '$apiBaseUrl/storage/categories';
 
 final Color? primaryColor = Colors.deepOrange[500];
 
@@ -24,6 +28,8 @@ final String passwordAgainString = 'ŞİFRE (TEKRAR)';
 final String lastAddedRecipesString = 'Son Eklenen Tarifler';
 final String categoriesString = 'Kategoriler';
 final String recommendedString = 'Tavsiye edilenler';
+final String allRecipesString = 'Tüm Tarifler';
+final String allCategoriesString = 'Tüm Kategoriler';
 final String seeAllString = 'Hepsini Gör';
 final String caloriesUnitString = 'kcal';
 final String durationUnitString = 'dk';

@@ -5,6 +5,10 @@ import '../categories/categories_list_view.dart';
 import 'categories_list_card.dart';
 
 class CategoriesList extends StatelessWidget {
+  final categoryList;
+
+  CategoriesList({this.categoryList});
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -53,13 +57,11 @@ class CategoriesList extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              children: [
-                CategoriesListCard(),
-                CategoriesListCard(),
-                CategoriesListCard(),
-                CategoriesListCard(),
-                CategoriesListCard(),
-              ],
+              children: categoryList
+                  .map<Widget>(
+                    (category) => CategoriesListCard(category: category),
+                  )
+                  .toList(),
             ),
           ),
         ],

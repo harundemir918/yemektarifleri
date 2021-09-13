@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../constants.dart';
+import '../../viewmodel/category_list_view_model.dart';
 import '../widgets/categories_grid_list.dart';
 
-class CategoriesListView extends StatelessWidget {
+class CategoriesListView extends StatefulWidget {
   const CategoriesListView({Key? key}) : super(key: key);
 
   @override
+  _CategoriesListViewState createState() => _CategoriesListViewState();
+}
+
+class _CategoriesListViewState extends State<CategoriesListView> {
+  void initState() {
+    Provider.of<CategoryListViewModel>(context, listen: false)
+        .getAllCategories();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var categoryViewModel = Provider.of<CategoryListViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Kategoriler',
+          categoriesString,
           style: Theme.of(context).textTheme.headline6,
         ),
         iconTheme: IconThemeData(
@@ -20,7 +35,9 @@ class CategoriesListView extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
-        child: CategoriesGridList(),
+        child: CategoriesGridList(
+          categoryList: categoryViewModel.allCategories,
+        ),
       ),
     );
   }

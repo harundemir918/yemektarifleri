@@ -41,7 +41,7 @@ class CategoriesList extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Text(seeAllString),
+                    Text(allCategoriesString),
                     Icon(Icons.arrow_forward_ios_rounded),
                   ],
                 ),

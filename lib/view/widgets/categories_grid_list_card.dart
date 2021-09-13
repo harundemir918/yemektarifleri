@@ -7,55 +7,76 @@ class CategoriesGridListCard extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                width: deviceWidth * 0.45,
-                height: deviceWidth * 0.45,
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Image.network(
-                      'https://cdn.yemek.com/mnresize/940/940/uploads/2015/08/tavuk-sote-yemekcom.jpg'),
-                ),
-              ),
+      width: deviceWidth * 0.45,
+      height: deviceHeight * 0.45,
+      margin: EdgeInsets.all(10),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: GridTile(
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: Image.network(
+              'https://cdn.yemek.com/mnresize/940/940/uploads/2015/08/tavuk-sote-yemekcom.jpg',
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-              child: Container(
-                width: deviceWidth * 0.45,
-                height: deviceHeight * 0.05,
-                color: Colors.black.withOpacity(0.5),
-              ),
-            ),
+          footer: GridTileBar(
+            backgroundColor: Colors.black54,
+            title: Text('Tavuk Sote'),
           ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              margin: EdgeInsets.only(
-                top: deviceHeight * 0.01,
-                bottom: deviceHeight * 0.01,
-                left: deviceWidth * 0.075,
-              ),
-              child: Text(
-                'Tavuk Sote',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
+
+    // return Container(
+    //   child: Stack(
+    //     children: [
+    //       Align(
+    //         alignment: Alignment.bottomCenter,
+    //         child: ClipRRect(
+    //           borderRadius: BorderRadius.circular(10),
+    //           child: Container(
+    //             width: deviceWidth * 0.45,
+    //             height: deviceWidth * 0.45,
+    //             child: FittedBox(
+    //               fit: BoxFit.cover,
+    //               child: Image.network(
+    //                   'https://cdn.yemek.com/mnresize/940/940/uploads/2015/08/tavuk-sote-yemekcom.jpg'),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Align(
+    //         alignment: Alignment.bottomCenter,
+    //         child: ClipRRect(
+    //           borderRadius: BorderRadius.only(
+    //             bottomLeft: Radius.circular(10),
+    //             bottomRight: Radius.circular(10),
+    //           ),
+    //           child: Container(
+    //             width: deviceWidth * 0.45,
+    //             height: deviceHeight * 0.05,
+    //             color: Colors.black.withOpacity(0.5),
+    //           ),
+    //         ),
+    //       ),
+    //       Align(
+    //         alignment: Alignment.bottomLeft,
+    //         child: Container(
+    //           margin: EdgeInsets.only(
+    //             top: deviceHeight * 0.01,
+    //             bottom: deviceHeight * 0.01,
+    //             left: deviceWidth * 0.075,
+    //           ),
+    //           child: Text(
+    //             'Tavuk Sote',
+    //             style: TextStyle(
+    //               color: Colors.white,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }

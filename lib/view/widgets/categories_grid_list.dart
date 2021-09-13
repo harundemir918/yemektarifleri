@@ -12,7 +12,7 @@ class CategoriesGridList extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: deviceHeight * 0.85,
+            height: deviceHeight * 0.89,
             child: GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.all(10.0),

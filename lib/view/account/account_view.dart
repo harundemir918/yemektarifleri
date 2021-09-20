@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../service/api.dart';
+import '../../viewmodel/user_list_view_model.dart';
+import '../auth/login_view.dart';
 import 'account_recipes_view.dart';
 
-class AccountView extends StatelessWidget {
+class AccountView extends StatefulWidget {
+  @override
+  State<AccountView> createState() => _AccountViewState();
+}
+
+class _AccountViewState extends State<AccountView> {
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  getUser() async {
+    var userId = await Api().getId();
+    Provider.of<UserListViewModel>(context, listen: false).getUser(userId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var userViewModel = Provider.of<UserListViewModel>(context);
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
 
@@ -23,11 +43,17 @@ class AccountView extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Image.asset(
-                      'assets/icons/userprofile.png',
-                      height: 100,
-                      width: 100,
-                    ),
+                    child: userViewModel.user.avatar != null
+                        ? Image.network(
+                            userViewModel.user.avatar!,
+                            height: 100,
+                            width: 100,
+                          )
+                        : Image.asset(
+                            'assets/icons/userprofile.png',
+                            height: 100,
+                            width: 100,
+                          ),
                   ),
                   SizedBox(
                     width: 16,
@@ -37,13 +63,13 @@ class AccountView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Yemektarifleri',
+                          userViewModel.user.name!,
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         SizedBox(
                           width: 12,
                         ),
-                        Text('yemek@tarifleri.com'),
+                        Text(userViewModel.user.email!),
                       ],
                     ),
                   ),
@@ -64,7 +90,9 @@ class AccountView extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AccountRecipesView(),
+                            builder: (context) => AccountRecipesView(
+                              userId: userViewModel.user.id!,
+                            ),
                           ),
                         );
                       },
@@ -79,7 +107,15 @@ class AccountView extends StatelessWidget {
                     SizedBox(height: 16),
                     Center(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Api().setToken('');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginView(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "Çıkış Yap",
                           style: TextStyle(color: Colors.white),

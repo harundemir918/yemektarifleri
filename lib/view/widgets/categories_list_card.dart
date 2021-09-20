@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yemektarifleri/view/recipes/category_recipes_list_view.dart';
+
+import '../recipes/category_recipes_list_view.dart';
 
 class CategoriesListCard extends StatelessWidget {
   final category;

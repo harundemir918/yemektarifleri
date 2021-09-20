@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'account_recipes_list_card.dart';
 
 class AccountRecipesList extends StatelessWidget {
-  const AccountRecipesList({Key? key}) : super(key: key);
+  final userRecipesList;
+
+  AccountRecipesList({this.userRecipesList});
 
   @override
   Widget build(BuildContext context) {
@@ -11,21 +13,16 @@ class AccountRecipesList extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
-      height: deviceHeight * 1.07,
+      margin: EdgeInsets.symmetric(
+        horizontal: deviceWidth * 0.05,
+        vertical: deviceHeight * 0.01,
+      ),
       child: ListView(
-        children: [
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-          AccountRecipesListCard(),
-        ],
+        children: userRecipesList
+            .map<Widget>(
+              (recipe) => AccountRecipesListCard(recipe: recipe),
+            )
+            .toList(),
       ),
     );
   }

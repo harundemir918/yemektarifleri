@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../../service/api.dart';
+import '../home/home_view.dart';
 import '../widgets/app_logo.dart';
 import '../widgets/auth_text_form_field.dart';
 import 'login_view.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
 
   @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
+  @override
   Widget build(BuildContext context) {
+    TextEditingController _nameController = TextEditingController();
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     TextEditingController _passwordAgainController = TextEditingController();
@@ -35,12 +43,21 @@ class RegisterView extends StatelessWidget {
                   AppLogo(),
                   Container(height: 5),
                   Text(
-                    loginToYourAccountString,
+                    createNewAccountString,
                     style: TextStyle(
                       color: Colors.grey,
                     ),
                   ),
                   Spacer(),
+                  AuthTextFormField(
+                    label: nameString,
+                    controller: _nameController,
+                    keyboard: TextInputType.name,
+                    obscured: false,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
                   AuthTextFormField(
                     label: emailString,
                     controller: _emailController,
@@ -79,39 +96,42 @@ class RegisterView extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        loginString,
+                        signUpString,
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
                       onPressed: () async {
-                        // if (_formKey.currentState!.validate()) {
-                        //   setState(() {
-                        //     _isLoading = true;
-                        //   });
-                        //   Api api = Api();
-                        //   bool _isLoggedIn = await api.logIn(
-                        //       email: _email.text.toString(),
-                        //       password: _password.text.toString());
-                        //   if (_isLoggedIn) {
-                        //     setState(() {
-                        //       _isLoading = false;
-                        //     });
-                        //     Navigator.pushReplacement(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) => HomeView(),
-                        //       ),
-                        //     );
-                        //   } else {
-                        //     setState(() {
-                        //       _isLoading = false;
-                        //     });
-                        //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //       content: Text("Bilgilerinizi kontrol ediniz."),
-                        //     ));
-                        //   }
-                        // }
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          Api api = Api();
+                          bool _isRegistered = await api.register(
+                              name: _nameController.text.toString(),
+                              email: _emailController.text.toString(),
+                              password: _passwordController.text.toString(),
+                              passwordAgain:
+                                  _passwordAgainController.text.toString());
+                          if (_isRegistered) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeView(),
+                              ),
+                            );
+                          } else {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Bilgilerinizi kontrol ediniz."),
+                            ));
+                          }
+                        }
                       },
                     ),
                   ),

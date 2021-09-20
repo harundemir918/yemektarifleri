@@ -12,6 +12,7 @@ class RecipeListViewModel with ChangeNotifier {
   List<RecipeViewModel> lastAddedRecipes = [];
   List<RecipeViewModel> recommendedRecipes = [];
   List<RecipeViewModel> categoryRecipes = [];
+  List<RecipeViewModel> userRecipes = [];
 
   void getAllRecipes() async {
     List<RecipeModel> recipesList = await Api().fetchAllRecipes();
@@ -71,5 +72,62 @@ class RecipeListViewModel with ChangeNotifier {
       this.loadingStatus = LoadingStatus.completed;
     }
     notifyListeners();
+  }
+
+  void getUserRecipes(int id) async {
+    List<RecipeModel> recipesList = await Api().fetchUserRecipes(id);
+    loadingStatus = LoadingStatus.searching;
+    notifyListeners();
+
+    this.userRecipes =
+        recipesList.map((recipe) => RecipeViewModel(recipe: recipe)).toList();
+    if (this.userRecipes.isEmpty) {
+      this.loadingStatus = LoadingStatus.empty;
+    } else {
+      this.loadingStatus = LoadingStatus.completed;
+    }
+    notifyListeners();
+  }
+
+  Future<bool> postRecipe(RecipeModel recipe) async {
+    loadingStatus = LoadingStatus.searching;
+    var response = await Api().postRecipe(recipe);
+    notifyListeners();
+
+    if (response) {
+      this.loadingStatus = LoadingStatus.completed;
+      return true;
+    } else {
+      this.loadingStatus = LoadingStatus.empty;
+      return false;
+    }
+  }
+
+  Future<bool> updateRecipe(int userId, RecipeModel recipe) async {
+    loadingStatus = LoadingStatus.searching;
+    var response = await Api().updateRecipe(userId, recipe);
+    notifyListeners();
+
+    if (response) {
+      this.loadingStatus = LoadingStatus.completed;
+      return true;
+    } else {
+      this.loadingStatus = LoadingStatus.empty;
+      return false;
+    }
+  }
+
+  Future<bool> deleteUserRecipe(int userId, int recipeId) async {
+    loadingStatus = LoadingStatus.searching;
+    var response = await Api().deleteRecipe(userId, recipeId);
+    notifyListeners();
+
+    if (response) {
+      this.loadingStatus = LoadingStatus.completed;
+      return true;
+    } else {
+      this.loadingStatus = LoadingStatus.empty;
+      return false;
+    }
   }
 }

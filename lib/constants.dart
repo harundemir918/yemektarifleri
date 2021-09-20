@@ -9,9 +9,14 @@ final String apiRegisterUrl = '$apiUrl/auth/signup';
 final String apiRecipesUrl = '$apiUrl/recipes';
 final String apiRecommendedRecipesUrl = '$apiUrl/recipes/recommended';
 final String apiLastAddedRecipesUrl = '$apiUrl/recipes/last-added';
+final String apiRecipeImagesUrl = '$apiBaseUrl/storage/recipes';
+final String apiAddRecipeUrl = '$apiUrl/recipes/add';
+final String apiEditRecipeUrl = '$apiUrl/recipes/add';
 final String apiCategoriesUrl = '$apiUrl/categories';
 final String apiLastAddedCategoriesUrl = '$apiUrl/categories/last-added';
 final String apiCategoryImagesUrl = '$apiBaseUrl/storage/categories';
+final String apiUsersUrl = '$apiUrl/users';
+final String apiUserImageUrl = '$apiBaseUrl/storage/users';
 
 final Color? primaryColor = Colors.deepOrange[500];
 
@@ -21,6 +26,7 @@ final String createNewAccountString = 'Yeni hesap oluşturun';
 final String loginToYourAccountString = 'Hesabınıza giriş yapın';
 final String doNotYouHaveAnAccountString = 'Hesabınız yok mu? Kayıt olun.';
 final String doYouHaveAnAccountString = 'Hesabınız var mı? Giriş yapın.';
+final String nameString = 'İSİM';
 final String emailString = 'EMAİL';
 final String passwordString = 'ŞİFRE';
 final String passwordAgainString = 'ŞİFRE (TEKRAR)';

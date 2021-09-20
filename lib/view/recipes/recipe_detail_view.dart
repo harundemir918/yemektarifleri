@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import '../widgets/meal_info_list.dart';
 import '../widgets/meal_info_title_card.dart';
 
@@ -20,7 +21,7 @@ class RecipeDetailView extends StatelessWidget {
                 calories: recipe.calories,
                 duration: recipe.duration,
                 person: recipe.person,
-                picture: recipe.picture,
+                picture: '$apiRecipeImagesUrl/${recipe.picture}',
               ),
               MealInfoList(
                 carbohydrate: recipe.carbohydrate,

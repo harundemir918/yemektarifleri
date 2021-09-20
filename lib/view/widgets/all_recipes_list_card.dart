@@ -35,7 +35,8 @@ class AllRecipesListCard extends StatelessWidget {
                   height: deviceHeight * 0.5,
                   child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(recipe.picture),
+                    child:
+                        Image.network('$apiRecipeImagesUrl/${recipe.picture}'),
                   ),
                 ),
               ),

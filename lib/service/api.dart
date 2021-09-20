@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
@@ -10,7 +11,20 @@ import '../model/recipe_model.dart';
 import '../model/user_model.dart';
 
 class Api {
-  String token = '';
+  int? id;
+  String? token;
+  int? active;
+
+  setId(id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setInt('id', id);
+  }
+
+  getId() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    id = sharedPreferences.getInt('id');
+    return id;
+  }
 
   setToken(token) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -19,8 +33,19 @@ class Api {
 
   getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    token = sharedPreferences.getString('token')!;
+    token = sharedPreferences.getString('token');
     return token;
+  }
+
+  setActive(active) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setInt('active', active);
+  }
+
+  getActive() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    active = sharedPreferences.getInt('active');
+    return active;
   }
 
   Future<bool> logIn({required String email, required String password}) async {
@@ -39,10 +64,44 @@ class Api {
       },
     );
     if (response.statusCode == HttpStatus.ok) {
-      print('Response: ' + response.body);
       var user = UserModel.fromJson(jsonDecode(response.body));
+      setId(user.user?.id);
       setToken(user.accessToken);
-      print(user.accessToken);
+      setActive(user.user?.active);
+      return true;
+    } else {
+      print('Response: ' + response.body);
+    }
+    return false;
+  }
+
+  Future<bool> register({
+    required String name,
+    required String email,
+    required String password,
+    required String passwordAgain,
+  }) async {
+    var loginUrl = Uri.parse(apiRegisterUrl);
+    var response = await http.post(
+      loginUrl,
+      body: jsonEncode(
+        {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation': passwordAgain,
+        },
+      ),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+    if (response.statusCode == HttpStatus.created) {
+      var user = UserModel.fromJson(jsonDecode(response.body));
+      setId(user.user?.id);
+      setToken(user.accessToken);
+      setActive(user.user?.active);
       return true;
     } else {
       print('Response: ' + response.body);
@@ -127,8 +186,8 @@ class Api {
 
   Future<RecipeModel> fetchRecipe(int id) async {
     String token = await getToken();
-    final lastAddedRecipesUrl = Uri.parse('$apiRecipesUrl/$id');
-    final response = await http.get(lastAddedRecipesUrl, headers: {
+    final recipeUrl = Uri.parse('$apiRecipesUrl/$id');
+    final response = await http.get(recipeUrl, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
@@ -215,6 +274,159 @@ class Api {
     } else {
       throw Exception(
           'Response Status: ${response.statusCode}. Failed to get data.');
+    }
+  }
+
+  Future<User> fetchUser(int id) async {
+    String token = await getToken();
+    final userUrl = Uri.parse('$apiUsersUrl/$id');
+    final response = await http.get(userUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final result = User.fromJson(jsonDecode(response.body));
+      return result;
+    } else {
+      throw Exception(
+          'Response Status: ${response.statusCode}. Failed to get data.');
+    }
+  }
+
+  Future<List<RecipeModel>> fetchUserRecipes(int id) async {
+    List<RecipeModel> userRecipesList = [];
+
+    String token = await getToken();
+    final userRecipesUrl = Uri.parse('$apiUsersUrl/$id/recipes');
+    final response = await http.get(userRecipesUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      final result = jsonDecode(response.body);
+      result.forEach(
+        (recipe) => userRecipesList.add(
+          RecipeModel.fromJson(recipe),
+        ),
+      );
+      return userRecipesList;
+    } else {
+      throw Exception(
+          'Response Status: ${response.statusCode}. Failed to get data.');
+    }
+  }
+
+  Future<bool> postRecipe(RecipeModel recipe) async {
+    String token = await getToken();
+    var request = http.MultipartRequest("POST", Uri.parse(apiAddRecipeUrl));
+    request.fields['user_id'] = recipe.userId.toString();
+    request.fields['category'] = recipe.category.toString();
+    request.fields['title'] = recipe.title!;
+    request.fields['ingredients'] = recipe.ingredients!;
+    request.fields['recipe'] = recipe.recipe!;
+    request.fields['calories'] = recipe.calories!;
+    request.fields['duration'] = recipe.duration!;
+    request.fields['person'] = recipe.person!;
+    request.fields['carbohydrate'] = recipe.carbohydrate!;
+    request.fields['protein'] = recipe.protein!;
+    request.fields['fat'] = recipe.fat!;
+
+    if (recipe.picture != null) {
+      var pictureFile = File(recipe.picture!);
+      var pictureLength = await pictureFile.length();
+      var pictureStream = new http.ByteStream(pictureFile.openRead());
+      pictureStream.cast();
+
+      request.files.add(
+        http.MultipartFile(
+          'picture',
+          pictureStream,
+          pictureLength,
+          filename: basename(pictureFile.path),
+        ),
+      );
+    }
+
+    request.headers.addAll({
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    var response = await request.send();
+    if (response.statusCode == HttpStatus.created) {
+      print(await response.stream.bytesToString());
+      return true;
+    } else {
+      print(await response.stream.bytesToString());
+      return false;
+    }
+  }
+
+  Future<bool> updateRecipe(int userId, RecipeModel recipe) async {
+    String token = await getToken();
+    var request = http.MultipartRequest(
+        "POST", Uri.parse('$apiUsersUrl/$userId/recipes/${recipe.id}/edit'));
+    request.fields['category'] = recipe.category.toString();
+    request.fields['title'] = recipe.title!;
+    request.fields['ingredients'] = recipe.ingredients!;
+    request.fields['recipe'] = recipe.recipe!;
+    request.fields['calories'] = recipe.calories!;
+    request.fields['duration'] = recipe.duration!;
+    request.fields['person'] = recipe.person!;
+    request.fields['carbohydrate'] = recipe.carbohydrate!;
+    request.fields['protein'] = recipe.protein!;
+    request.fields['fat'] = recipe.fat!;
+
+    if (recipe.picture != null) {
+      bool isPictureExist = await File(recipe.picture!).exists();
+      if (isPictureExist) {
+        var pictureFile = File(recipe.picture!);
+        var pictureLength = await pictureFile.length();
+        var pictureStream = new http.ByteStream(pictureFile.openRead());
+        pictureStream.cast();
+
+        request.files.add(
+          http.MultipartFile(
+            'picture',
+            pictureStream,
+            pictureLength,
+            filename: basename(pictureFile.path),
+          ),
+        );
+      }
+    }
+
+    request.headers.addAll({
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    var response = await request.send();
+    if (response.statusCode == HttpStatus.ok) {
+      print(await response.stream.bytesToString());
+      return true;
+    } else {
+      print(await response.stream.bytesToString());
+      return false;
+    }
+  }
+
+  Future<bool> deleteRecipe(int userId, int recipeId) async {
+    String token = await getToken();
+    final userRecipeUrl =
+        Uri.parse('$apiUsersUrl/$userId/recipes/$recipeId/delete');
+    final response = await http.get(userRecipeUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
